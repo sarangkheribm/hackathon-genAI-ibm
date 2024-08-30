@@ -7,5 +7,6 @@ RUN chown -R nodeuser:nodeuser /var/node-app
 RUN apk update && apk add nodejs --no-cache
 EXPOSE 8080
 USER nodeuser
-CMD [require('server/server/app.js')]
+CMD ["server/server/app.js"]
+#CMD [require('server/server/app.js')]
 ENTRYPOINT ["node"]
