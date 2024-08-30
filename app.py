@@ -26,7 +26,7 @@ st.markdown(
 # Fetch weather data from API
 API_KEY = "d3c93d00d69b45d5809161809240504"
 def fetch_weather():
-    locations = ['Dublin', 'Delhi', 'Spain', 'Bali']
+    locations = ['Pune', 'Delhi', 'Spain', 'Bali']
     weather_data = []
     for location in locations:
         response = requests.get(f'https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={location}')
