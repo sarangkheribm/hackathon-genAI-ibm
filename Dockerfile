@@ -8,5 +8,4 @@ RUN apk update && apk add nodejs --no-cache
 EXPOSE 8080
 USER nodeuser
 CMD [require('server/server/app.js')]
-CMD ["server/app.js"]
 ENTRYPOINT ["node"]
