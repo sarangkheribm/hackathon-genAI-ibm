@@ -1,11 +1,20 @@
-FROM alpine:3.17
-RUN mkdir -p /var/node-app/
-RUN adduser -h /var/node-app -D -s /bin/sh nodeuser
-WORKDIR /var/node-app/
-COPY . .
-RUN chown -R nodeuser:nodeuser /var/node-app
-RUN apk update && apk add nodejs --no-cache
+# app/Dockerfile
+FROM python:3.9-slim
+# Set work directory
+WORKDIR /app
+COPY . /app
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    software-properties-common \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install -r requirements.txt
+
 EXPOSE 8080
-USER nodeuser
-CMD ["server/server/app.js"]
-ENTRYPOINT ["node"]
+
+HEALTHCHECK CMD curl --fail http://localhost:8080/_stcore/health
+
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
